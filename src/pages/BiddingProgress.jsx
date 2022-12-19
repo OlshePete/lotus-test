@@ -11,6 +11,7 @@ import CloseIcon from "@mui/icons-material/Close";
 import CustomTimer from "../components/CustomTimer";
 import AvTimerIcon from "@mui/icons-material/AvTimer";
 import CustomTable from "../components/CustomTable";
+import CustomTableNew from "../components/CustomTable";
 
 const style = {
   position: "absolute",
@@ -116,7 +117,7 @@ const BiddingProgress = () => {
                   opacity: "0.9",
                 }}
               />
-              <CustomTable />
+              <CustomTableNew />
             </Box>
           </Box>
         </Box>
