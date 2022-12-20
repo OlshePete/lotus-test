@@ -1,19 +1,10 @@
 import React from "react";
-import {
-  Box,
-  Button,
-  Chip,
-  IconButton,
-  Modal,
-  Typography,
-} from "@mui/material";
+import { Box, Button, IconButton, Modal, Typography } from "@mui/material";
 import CloseIcon from "@mui/icons-material/Close";
-import CustomTimer from "../components/CustomTimer";
-import AvTimerIcon from "@mui/icons-material/AvTimer";
 import CustomTable from "../components/CustomTable";
-import CustomTableNew from "../components/CustomTable";
 
 const style = {
+  fontFamily: "Unbounded",
   position: "absolute",
   top: "50%",
   left: "50%",
@@ -40,7 +31,7 @@ const BiddingProgress = () => {
         variant="contained"
         size="large"
       >
-        <Typography>Ход торгов</Typography>
+        <Typography fontFamily={style.fontFamily}>Ход торгов</Typography>
       </Button>
       <Modal
         open={open}
@@ -62,14 +53,20 @@ const BiddingProgress = () => {
               md: "center",
             }}
           >
-            <Typography fontSize="24px" fontWeight="300" color="red">
+            <Typography
+              fontFamily={style.fontFamily}
+              fontSize="24px"
+              fontWeight="300"
+              color="red"
+            >
               Ход торгов:&nbsp;
             </Typography>
             <Typography
+              fontFamily={style.fontFamily}
               fontSize="24px"
               component="div"
               color="red"
-              fontWeight="bold"
+              fontWeight="500"
             >
               изготовление подогревателей T-2 LTS BJM WS-8.42-2017-41/9 - 2 ШТ.
               (21.10.2020 10:00)
@@ -88,8 +85,10 @@ const BiddingProgress = () => {
           </Box>
 
           {/* content */}
-          <Box marginTop={8}>
+          <Box>
             <Typography
+              marginTop={8}
+              fontFamily={style.fontFamily}
               component="div"
               paddingY={1}
               paddingX={1}
@@ -104,21 +103,7 @@ const BiddingProgress = () => {
               теплообменной трубы 16х2б 0х3000мм, поставляемой ООО "ЛОТОС
               инжиниринг" не позднее 13.11.2020г
             </Typography>
-            <Box>
-              <Chip
-                label={<CustomTimer />}
-                color="error"
-                icon={<AvTimerIcon />}
-                sx={{
-                  py: 4,
-                  my: 4,
-                  fontSize: 24,
-                  width: "240px",
-                  opacity: "0.9",
-                }}
-              />
-              <CustomTableNew />
-            </Box>
+            <CustomTable />
           </Box>
         </Box>
       </Modal>

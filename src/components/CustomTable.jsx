@@ -6,7 +6,10 @@ import TableContainer from "@mui/material/TableContainer";
 import TableHead from "@mui/material/TableHead";
 import TableRow from "@mui/material/TableRow";
 import Paper from "@mui/material/Paper";
+import { Typography } from "@mui/material";
+import CustomTimer from "./CustomTimer";
 
+const font = "Unbounded";
 const tableData = [
   {
     id: 0,
@@ -20,6 +23,7 @@ const tableData = [
       discount: "-25,000 руб",
       finalPrice: "2,475,000 руб",
     },
+    myMove: false,
   },
   {
     id: 1,
@@ -33,6 +37,7 @@ const tableData = [
       discount: "-25,000 руб",
       finalPrice: "2,475,000 руб",
     },
+    myMove: false,
   },
   {
     id: 2,
@@ -46,6 +51,7 @@ const tableData = [
       discount: "-25,000 руб",
       finalPrice: "2,475,000 руб",
     },
+    myMove: true,
   },
   {
     id: 3,
@@ -59,16 +65,18 @@ const tableData = [
       discount: "-25,000 руб",
       finalPrice: "2,475,000 руб",
     },
+    myMove: false,
   },
 ];
+const queue = 0;
 const rowLabelList = {
-  events: "Наличие комплекса",
-  productionTime: "Срок изоговления",
-  warranty: "Гарантийные обязательства",
-  paymentTerms: "Условия оплаты",
-  price: "Стоимость изготовления лота",
+  events: "Наличие комплекса:",
+  productionTime: "Срок изоговления:",
+  warranty: "Гарантийные обязательства:",
+  paymentTerms: "Условия оплаты:",
+  price: "Стоимость изготовления лота:",
 };
-export default function CustomTableNew() {
+export default function CustomTable() {
   return (
     <TableContainer component={Paper}>
       <Table aria-label="bidding table">
@@ -77,15 +85,43 @@ export default function CustomTableNew() {
             <TableCell
               sx={{
                 width: 240,
+                height: 40,
               }}
             >
-              Параметры и требования
+              <Typography fontFamily={font} variant="body1" fontWeight="bold">
+                Ход
+              </Typography>
             </TableCell>
-            {tableData.map((teammate, index) => (
-              <TableCell key={index + Date()} align="right">
-                Участник №{index + 1}
-              </TableCell>
-            ))}
+            {tableData &&
+              tableData.map((el, i) => {
+                return (
+                  <>
+                    <CustomTimer />
+                  </>
+                );
+              })}
+          </TableRow>
+          <TableRow>
+            <TableCell
+              sx={{
+                width: 240,
+                height: 40,
+              }}
+            >
+              <Typography fontFamily={font} variant="body1" fontWeight="bold">
+                Параметры и требования
+              </Typography>
+            </TableCell>
+            {tableData &&
+              tableData.map((el, i) => {
+                return (
+                  <TableCell key={i + Date()} align="right">
+                    <Typography fontFamily={font} variant="body1">
+                      Участник №{i + 1}
+                    </Typography>{" "}
+                  </TableCell>
+                );
+              })}
           </TableRow>
         </TableHead>
         <TableBody>
@@ -95,31 +131,37 @@ export default function CustomTableNew() {
               sx={{ "&:last-child td, &:last-child th": { border: 0 } }}
             >
               <TableCell component="th" scope="row">
-                {rowLabelList[row]}
+                <Typography fontFamily={font} variant="body1" fontWeight="bold">
+                  {rowLabelList[row]}
+                </Typography>
               </TableCell>
-              {tableData.map((teammate, index) => {
-                if (row === "price")
+              {tableData &&
+                tableData.map((teammate, index) => {
+                  if (row === "price")
+                    return (
+                      <TableCell
+                        key={"rowLabelList" + index + Date()}
+                        align="right"
+                        display={"flex"}
+                        flexDirection={"column"}
+                      >
+                        <Typography fontFamily={font}>
+                          {" "}
+                          {Object.keys(teammate[row]).map((price, prIndex) => {
+                            return <p>{teammate[row][price]}</p>;
+                          })}
+                        </Typography>
+                      </TableCell>
+                    );
                   return (
                     <TableCell
                       key={"rowLabelList" + index + Date()}
                       align="right"
-                      display={"flex"}
-                      flexDirection={"column"}
                     >
-                      {Object.keys(teammate[row]).map((price, prIndex) => {
-                        return <p>{teammate[row][price]}</p>;
-                      })}
+                      <Typography fontFamily={font}>{teammate[row]}</Typography>
                     </TableCell>
                   );
-                return (
-                  <TableCell
-                    key={"rowLabelList" + index + Date()}
-                    align="right"
-                  >
-                    {teammate[row]}
-                  </TableCell>
-                );
-              })}
+                })}
             </TableRow>
           ))}
         </TableBody>
