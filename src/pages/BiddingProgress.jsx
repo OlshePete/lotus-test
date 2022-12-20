@@ -15,7 +15,6 @@ const style = {
   boxShadow: 24,
   p: 4,
   borderRadius: "4px",
-  position: "relative",
   overflow: "auto",
 };
 

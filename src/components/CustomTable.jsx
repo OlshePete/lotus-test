@@ -6,7 +6,7 @@ import TableContainer from "@mui/material/TableContainer";
 import TableHead from "@mui/material/TableHead";
 import TableRow from "@mui/material/TableRow";
 import Paper from "@mui/material/Paper";
-import { Typography } from "@mui/material";
+import { Button, Typography } from "@mui/material";
 import CustomTimer from "./CustomTimer";
 
 const font = "Unbounded";
@@ -76,9 +76,15 @@ const rowLabelList = {
   paymentTerms: "Условия оплаты:",
   price: "Стоимость изготовления лота:",
 };
+
 export default function CustomTable() {
+  React.useEffect(() => {
+    localStorage.setItem("key", 1);
+  }, []);
+
   return (
     <TableContainer component={Paper}>
+      <CustomTimer />
       <Table aria-label="bidding table">
         <TableHead>
           <TableRow>
@@ -92,14 +98,6 @@ export default function CustomTable() {
                 Ход
               </Typography>
             </TableCell>
-            {tableData &&
-              tableData.map((el, i) => {
-                return (
-                  <>
-                    <CustomTimer />
-                  </>
-                );
-              })}
           </TableRow>
           <TableRow>
             <TableCell
@@ -114,13 +112,24 @@ export default function CustomTable() {
             </TableCell>
             {tableData &&
               tableData.map((el, i) => {
-                return (
-                  <TableCell key={i + Date()} align="right">
-                    <Typography fontFamily={font} variant="body1">
-                      Участник №{i + 1}
-                    </Typography>{" "}
-                  </TableCell>
-                );
+                if (localStorage.getItem("key") === i) {
+                  return (
+                    <TableCell key={i + Date()} align="right">
+                      <Typography fontFamily={font} variant="body1">
+                        Участник №{i + 1}
+                      </Typography>
+                      <CustomTimer i={i} />
+                    </TableCell>
+                  );
+                } else {
+                  return (
+                    <TableCell key={i + Date()} align="right">
+                      <Typography fontFamily={font} variant="body1">
+                        Участник №{i + 1}
+                      </Typography>
+                    </TableCell>
+                  );
+                }
               })}
           </TableRow>
         </TableHead>
