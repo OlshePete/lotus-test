@@ -77,9 +77,10 @@ const rowLabelList = {
 };
 
 export default function CustomTable() {
-  React.useEffect(() => {
-    localStorage.setItem("key", 1);
-  }, []);
+  const getStorageKey = () => {
+    localStorage.getItem("key");
+  };
+  const [storageKey] = React.useState(getStorageKey());
 
   return (
     <TableContainer component={Paper}>
@@ -111,7 +112,7 @@ export default function CustomTable() {
             </TableCell>
             {tableData &&
               tableData.map((el, i) => {
-                if (localStorage.getItem("key") === i) {
+                if (storageKey === i) {
                   return (
                     <TableCell key={i + Date()} align="right">
                       <Typography fontFamily={font} variant="body1">

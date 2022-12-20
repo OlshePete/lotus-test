@@ -5,22 +5,30 @@ import Countdown from "react-countdown";
 
 const font = "Unbounded";
 
+const setStorageKey = () => {
+  if (!localStorage.getItem("key")) {
+    localStorage.setItem("key", 0);
+  }
+  if (localStorage.getItem("key") === 0) {
+    localStorage.clear();
+    localStorage.setItem("key", 1);
+  }
+  if (localStorage.getItem("key") === 1) {
+    localStorage.setItem("key", 2);
+  }
+  if (localStorage.getItem("key") === 2) {
+    localStorage.setItem("key", 3);
+  }
+  if (localStorage.getItem("key") === 3) {
+    localStorage.setItem("key", 4);
+  }
+};
+
 export default class CustomTimer extends Component {
   state = { date: Date.now() + 5000 };
   autostart = () => {
     this.setState({ date: Date.now() + 5000 });
-    if (localStorage.getItem("key") === 1) {
-      return localStorage.setItem("key", 2);
-    }
-    if (localStorage.getItem("key") === 2) {
-      return localStorage.setItem("key", 3);
-    }
-    if (localStorage.getItem("key") === 3) {
-      return localStorage.setItem("key", 4);
-    }
-    if (localStorage.getItem("key") === 4) {
-      return localStorage.setItem("key", 1);
-    }
+    setStorageKey();
   };
 
   render() {
