@@ -6,7 +6,7 @@ import TableContainer from "@mui/material/TableContainer";
 import TableHead from "@mui/material/TableHead";
 import TableRow from "@mui/material/TableRow";
 import Paper from "@mui/material/Paper";
-import { Button, Typography } from "@mui/material";
+import { Typography } from "@mui/material";
 import CustomTimer from "./CustomTimer";
 
 const font = "Unbounded";
@@ -68,7 +68,6 @@ const tableData = [
     myMove: false,
   },
 ];
-const queue = 0;
 const rowLabelList = {
   events: "Наличие комплекса:",
   productionTime: "Срок изоговления:",
