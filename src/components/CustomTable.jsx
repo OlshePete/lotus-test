@@ -6,8 +6,13 @@ import TableContainer from "@mui/material/TableContainer";
 import TableHead from "@mui/material/TableHead";
 import TableRow from "@mui/material/TableRow";
 import Paper from "@mui/material/Paper";
-import { Typography } from "@mui/material";
+import { Button, Grid, Typography } from "@mui/material";
 import CustomTimer from "./CustomTimer";
+import ChatIcon from "@mui/icons-material/Chat";
+import RefreshIcon from "@mui/icons-material/Refresh";
+import GavelIcon from "@mui/icons-material/Gavel";
+import AssessmentIcon from "@mui/icons-material/Assessment";
+import HighlightOffIcon from "@mui/icons-material/HighlightOff";
 
 const font = "Unbounded";
 const tableData = [
@@ -76,105 +81,176 @@ const rowLabelList = {
   price: "Стоимость изготовления лота:",
 };
 
-export default function CustomTable() {
-  const getStorageKey = () => {
-    localStorage.getItem("key");
-  };
-  const [storageKey] = React.useState(getStorageKey());
+export default function CustomTable(props) {
+  const [storageKey, setStorageKey] = React.useState();
+
+  React.useEffect(() => {
+    setStorageKey(localStorage.getItem("key"));
+  }, []);
 
   return (
-    <TableContainer component={Paper}>
-      <CustomTimer />
-      <Table aria-label="bidding table">
-        <TableHead>
-          <TableRow>
-            <TableCell
-              sx={{
-                width: 240,
-                height: 40,
-              }}
-            >
-              <Typography fontFamily={font} variant="body1" fontWeight="bold">
-                Ход
-              </Typography>
-            </TableCell>
-          </TableRow>
-          <TableRow>
-            <TableCell
-              sx={{
-                width: 240,
-                height: 40,
-              }}
-            >
-              <Typography fontFamily={font} variant="body1" fontWeight="bold">
-                Параметры и требования
-              </Typography>
-            </TableCell>
-            {tableData &&
-              tableData.map((el, i) => {
-                if (storageKey === i) {
-                  return (
-                    <TableCell key={i + Date()} align="right">
-                      <Typography fontFamily={font} variant="body1">
-                        Участник №{i + 1}
-                      </Typography>
-                      <CustomTimer i={i} />
-                    </TableCell>
-                  );
-                } else {
-                  return (
-                    <TableCell key={i + Date()} align="right">
-                      <Typography fontFamily={font} variant="body1">
-                        Участник №{i + 1}
-                      </Typography>
-                    </TableCell>
-                  );
-                }
-              })}
-          </TableRow>
-        </TableHead>
-        <TableBody>
-          {Object.keys(rowLabelList).map((row) => (
-            <TableRow
-              key={rowLabelList[row]}
-              sx={{ "&:last-child td, &:last-child th": { border: 0 } }}
-            >
-              <TableCell component="th" scope="row">
+    <>
+      <TableContainer component={Paper}>
+        <Table aria-label="bidding table">
+          <TableHead>
+            <TableRow>
+              <TableCell
+                sx={{
+                  width: 240,
+                  height: 40,
+                }}
+              >
                 <Typography fontFamily={font} variant="body1" fontWeight="bold">
-                  {rowLabelList[row]}
+                  Ход
                 </Typography>
-              </TableCell>
+              </TableCell>{" "}
               {tableData &&
-                tableData.map((teammate, index) => {
-                  if (row === "price")
+                tableData.map((el, i) => {
+                  if (1 === i) {
+                    return (
+                      <TableCell key={i + Date()} align="right">
+                        <CustomTimer />
+                      </TableCell>
+                    );
+                  } else {
+                    return (
+                      <TableCell key={i + Date()} align="right">
+                        -
+                      </TableCell>
+                    );
+                  }
+                })}
+            </TableRow>
+            <TableRow>
+              <TableCell
+                sx={{
+                  width: 240,
+                  height: 40,
+                }}
+              >
+                <Typography fontFamily={font} variant="body1" fontWeight="bold">
+                  Параметры и требования
+                </Typography>
+              </TableCell>{" "}
+              {tableData &&
+                tableData.map((el, i) => (
+                  <TableCell key={i + Date()} align="right">
+                    <Typography fontFamily={font} variant="body1">
+                      Участник №{i + 1}
+                    </Typography>
+                  </TableCell>
+                ))}
+            </TableRow>
+          </TableHead>
+          <TableBody>
+            {Object.keys(rowLabelList).map((row) => (
+              <TableRow
+                key={rowLabelList[row]}
+                sx={{ "&:last-child td, &:last-child th": { border: 0 } }}
+              >
+                <TableCell component="th" scope="row">
+                  <Typography
+                    fontFamily={font}
+                    variant="body1"
+                    fontWeight="bold"
+                  >
+                    {rowLabelList[row]}
+                  </Typography>
+                </TableCell>
+                {tableData &&
+                  tableData.map((teammate, index) => {
+                    if (row === "price")
+                      return (
+                        <TableCell
+                          key={"rowLabelList" + index + Date()}
+                          align="right"
+                          display={"flex"}
+                          flexDirection={"column"}
+                        >
+                          <Typography fontFamily={font}>
+                            {" "}
+                            {Object.keys(teammate[row]).map(
+                              (price, prIndex) => {
+                                return <p>{teammate[row][price]}</p>;
+                              }
+                            )}
+                          </Typography>
+                        </TableCell>
+                      );
                     return (
                       <TableCell
                         key={"rowLabelList" + index + Date()}
                         align="right"
-                        display={"flex"}
-                        flexDirection={"column"}
                       >
                         <Typography fontFamily={font}>
-                          {" "}
-                          {Object.keys(teammate[row]).map((price, prIndex) => {
-                            return <p>{teammate[row][price]}</p>;
-                          })}
+                          {teammate[row]}
                         </Typography>
                       </TableCell>
                     );
-                  return (
-                    <TableCell
-                      key={"rowLabelList" + index + Date()}
-                      align="right"
-                    >
-                      <Typography fontFamily={font}>{teammate[row]}</Typography>
-                    </TableCell>
-                  );
-                })}
-            </TableRow>
-          ))}
-        </TableBody>
-      </Table>
-    </TableContainer>
+                  })}
+              </TableRow>
+            ))}
+          </TableBody>
+        </Table>
+      </TableContainer>
+      <Grid
+        container
+        item
+        xs={12}
+        sx={{
+          mt: 1,
+          display: "flex",
+          flexDirection: "row",
+          flexWrap: "wrap",
+          justifyContent: "right",
+        }}
+      >
+        <Button
+          sx={{ my: 0.4, mx: 0.1 }}
+          variant="contained"
+          size="large"
+          color="success"
+        >
+          <ChatIcon /> &nbsp; Чат
+        </Button>
+        <Button
+          sx={{ my: 0.4, mx: 0.1 }}
+          variant="contained"
+          size="large"
+          color="info"
+        >
+          <RefreshIcon />
+          &nbsp; Обновить
+        </Button>
+        <Button
+          sx={{ my: 0.4, mx: 0.1 }}
+          variant="contained"
+          size="large"
+          color="error"
+        >
+          <GavelIcon />
+          &nbsp; Завершить торги
+        </Button>
+        <Button
+          sx={{ my: 0.4, mx: 0.1 }}
+          variant="outlined"
+          size="large"
+          color="error"
+        >
+          <AssessmentIcon />
+          &nbsp; Отчёт
+        </Button>
+        <Button
+          onClick={props.handleClose}
+          sx={{ my: 0.4, mx: 0.1 }}
+          variant="text"
+          size="large"
+          color="error"
+        >
+          <HighlightOffIcon />
+          &nbsp; Закрыть
+        </Button>
+      </Grid>
+    </>
   );
 }

@@ -10,7 +10,6 @@ const setStorageKey = () => {
     localStorage.setItem("key", 0);
   }
   if (localStorage.getItem("key") === 0) {
-    localStorage.clear();
     localStorage.setItem("key", 1);
   }
   if (localStorage.getItem("key") === 1) {
@@ -46,11 +45,10 @@ export default class CustomTimer extends Component {
         color="error"
         icon={<AvTimerIcon />}
         sx={{
-          my: 2,
-          py: 4,
+          py: 3,
           fontSize: 24,
-          width: "240px",
-          opacity: "0.9",
+          opacity: "0.7",
+          width: 200,
         }}
       />
     );

@@ -1,6 +1,5 @@
 import React from "react";
-import { Box, Button, IconButton, Modal, Typography } from "@mui/material";
-import CloseIcon from "@mui/icons-material/Close";
+import { Box, Button, Modal, Typography } from "@mui/material";
 import CustomTable from "../components/CustomTable";
 
 const style = {
@@ -70,17 +69,6 @@ const BiddingProgress = () => {
               изготовление подогревателей T-2 LTS BJM WS-8.42-2017-41/9 - 2 ШТ.
               (21.10.2020 10:00)
             </Typography>
-            <IconButton
-              aria-label="close"
-              onClick={handleClose}
-              variant="rounded"
-              sx={{
-                position: "absolute",
-                right: 24,
-              }}
-            >
-              <CloseIcon />
-            </IconButton>
           </Box>
 
           {/* content */}
@@ -102,7 +90,7 @@ const BiddingProgress = () => {
               теплообменной трубы 16х2б 0х3000мм, поставляемой ООО "ЛОТОС
               инжиниринг" не позднее 13.11.2020г
             </Typography>
-            <CustomTable />
+            <CustomTable handleClose={handleClose} />
           </Box>
         </Box>
       </Modal>
