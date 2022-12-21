@@ -106,7 +106,7 @@ export default function CustomTable(props) {
               </TableCell>{" "}
               {tableData &&
                 tableData.map((el, i) => {
-                  if (1 === i) {
+                  if (0 === i) {
                     return (
                       <TableCell key={i + Date()} align="right">
                         <CustomTimer />
