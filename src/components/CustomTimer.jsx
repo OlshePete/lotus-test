@@ -8,18 +8,23 @@ const font = "Unbounded";
 const setStorageKey = () => {
   if (!localStorage.getItem("key")) {
     localStorage.setItem("key", 0);
+    return;
   }
-  if (localStorage.getItem("key") === 0) {
+  if (localStorage.getItem("key") == 0) {
     localStorage.setItem("key", 1);
+    return;
   }
-  if (localStorage.getItem("key") === 1) {
+  if (localStorage.getItem("key") == 1) {
     localStorage.setItem("key", 2);
+    return;
   }
-  if (localStorage.getItem("key") === 2) {
+  if (localStorage.getItem("key") == 2) {
     localStorage.setItem("key", 3);
+    return;
   }
-  if (localStorage.getItem("key") === 3) {
-    localStorage.setItem("key", 4);
+  if (localStorage.getItem("key") == 3) {
+    localStorage.setItem("key", 0);
+    return;
   }
 };
 

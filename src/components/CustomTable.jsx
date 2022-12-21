@@ -82,11 +82,13 @@ const rowLabelList = {
 };
 
 export default function CustomTable(props) {
-  const [storageKey, setStorageKey] = React.useState();
+  const [storageKey, setStorageKey] = React.useState(
+    localStorage.getItem("key")
+  );
 
   React.useEffect(() => {
     setStorageKey(localStorage.getItem("key"));
-  }, []);
+  }, [storageKey]);
 
   return (
     <>
@@ -106,7 +108,7 @@ export default function CustomTable(props) {
               </TableCell>{" "}
               {tableData &&
                 tableData.map((el, i) => {
-                  if (0 === i) {
+                  if (storageKey == i) {
                     return (
                       <TableCell key={i + Date()} align="right">
                         <CustomTimer />
