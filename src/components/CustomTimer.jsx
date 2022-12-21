@@ -27,7 +27,6 @@ const setStorageKey = () => {
     return;
   }
 };
-//init changes
 export default class CustomTimer extends Component {
   state = { date: Date.now() + 5000 };
   autostart = () => {
