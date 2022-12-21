@@ -6,13 +6,14 @@ import TableContainer from "@mui/material/TableContainer";
 import TableHead from "@mui/material/TableHead";
 import TableRow from "@mui/material/TableRow";
 import Paper from "@mui/material/Paper";
-import { Button, Grid, Typography } from "@mui/material";
+import { Box, Button, Grid, Typography } from "@mui/material";
 import CustomTimer from "./CustomTimer";
 import ChatIcon from "@mui/icons-material/Chat";
 import RefreshIcon from "@mui/icons-material/Refresh";
 import GavelIcon from "@mui/icons-material/Gavel";
 import AssessmentIcon from "@mui/icons-material/Assessment";
 import HighlightOffIcon from "@mui/icons-material/HighlightOff";
+import CustomTimer2 from "./CustomTimer2";
 
 const font = "Unbounded";
 const tableData = [
@@ -90,6 +91,13 @@ export default function CustomTable(props) {
     setStorageKey(localStorage.getItem("key"));
   }, [storageKey]);
 
+  React.useEffect(() => {
+    localStorage.setItem("key", 0);
+  }, []);
+  // React.useEffect(() => {
+  //   setStorageKey(localStorage.getItem("key"));
+  // });
+console.log();
   return (
     <>
       <TableContainer component={Paper}>
@@ -108,19 +116,23 @@ export default function CustomTable(props) {
               </TableCell>{" "}
               {tableData &&
                 tableData.map((el, i) => {
-                  if (storageKey == i) {
-                    return (
-                      <TableCell key={i + Date()} align="right">
-                        <CustomTimer />
+                  console.log("$$$$",el,i,storageKey == i ? "table-cell" : "none");
+                  // if (storageKey == i)
+                   return (
+                      <TableCell key={i + Date()} align="right" width={"200px"}>
+                        <CustomTimer2 id={i}/>
                       </TableCell>
-                    );
-                  } else {
-                    return (
-                      <TableCell key={i + Date()} align="right">
-                        -
-                      </TableCell>
-                    );
-                  }
+                  ); // else return<></>
+                  // if (storageKey == i) {
+                  //   return (
+                  //   );
+                  // } else {
+                  //   return (
+                  //     <TableCell key={i + Date()} align="right">
+                  //       -
+                  //     </TableCell>
+                  //   );
+                  // }
                 })}
             </TableRow>
             <TableRow>
@@ -136,7 +148,7 @@ export default function CustomTable(props) {
               </TableCell>{" "}
               {tableData &&
                 tableData.map((el, i) => (
-                  <TableCell key={i + Date()} align="right">
+                  <TableCell key={i + Date() + "title" + el} align="right">
                     <Typography fontFamily={font} variant="body1">
                       Участник №{i + 1}
                     </Typography>
@@ -164,7 +176,7 @@ export default function CustomTable(props) {
                     if (row === "price")
                       return (
                         <TableCell
-                          key={"rowLabelList" + index + Date()}
+                          key={"rowLabelList-price" + index + Date()}
                           align="right"
                           display={"flex"}
                           flexDirection={"column"}
